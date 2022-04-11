@@ -1,4 +1,5 @@
 import random
+import json
 food_file=open('foods.txt')
 list_of_foods=food_file.read().title().splitlines() # turn list file data into a list   
 high_fiber_file=open('highfiber.txt')
@@ -7,10 +8,28 @@ low_fat_file=open('lowfat.txt')
 list_of_fat=low_fat_file.read().title().splitlines() # turn list file data into a list
 low_glycemic_index_file=open('low-glycemic-index.txt')
 list_of_GI=low_glycemic_index_file.read().title().splitlines() # turn list file data into a list
+rows_to_keep=set()
 
-rows_to_remove=set()
+for i in range(len(list_of_foods)):
+    if list_of_fat[i]==("Yes " or " Yes"):
+        list_of_fat[i]="Yes"
+    elif list_of_fat[i]==("No "or" No"):
+        list_of_fat[i]="No"
+for i in range(len(list_of_foods)):
+    if list_of_fiber[i]==("Yes " or " Yes"):
+        list_of_fiber[i]="Yes"
+    elif list_of_fiber[i]==("No "or" No"):
+        list_of_fiber[i]="No"
+for i in range(len(list_of_foods)):
+    if list_of_GI[i]==("Yes " or " Yes"):
+        list_of_GI[i]="Yes"
+    elif list_of_GI[i]==("No "or" No"):
+        list_of_GI[i]="No"
+
+rows_to_remove={0}
 rows_to_review=set()
 for i in range(len(list_of_foods)):
+    rows_to_keep.add(i)
     if list_of_foods[i]=="":
         rows_to_remove.add(i)
     if not list_of_foods[i].isalpha():
@@ -39,4 +58,17 @@ for i in rows_to_review:
         else:
             edit_data = True
             rows_to_remove.add(i)
-print(rows_to_remove)
+
+rows_to_keep=rows_to_keep-rows_to_remove
+food_dictionary_list=[]
+for i in rows_to_keep:
+    food_dictionary={"Food":list_of_foods[i],list_of_fiber[0]:list_of_fiber[i],list_of_fat[0]:list_of_fat[i],list_of_GI[0]:list_of_GI[i]}
+    food_dictionary_list.append(food_dictionary)
+with open("json_test.json", "w") as outfile:
+    json.dump(food_dictionary_list, outfile)    
+#json.dump(food_dictionary_list)
+    
+
+file=open('other_test.json','w') # open the file to edit
+json.dump(food_dictionary_list,file)
+file.close()
