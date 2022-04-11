@@ -1,13 +1,17 @@
-import random
+
 import json
 food_file=open('foods.txt')
-list_of_foods=food_file.read().title().splitlines() # turn list file data into a list   
+list_of_foods=food_file.read().title().splitlines()
+food_file.close() # turn list file data into a list   
 high_fiber_file=open('highfiber.txt')
 list_of_fiber=high_fiber_file.read().title().splitlines() # turn list file data into a list
+high_fiber_file.close()
 low_fat_file=open('lowfat.txt')
 list_of_fat=low_fat_file.read().title().splitlines() # turn list file data into a list
+low_fat_file.close()
 low_glycemic_index_file=open('low-glycemic-index.txt')
 list_of_GI=low_glycemic_index_file.read().title().splitlines() # turn list file data into a list
+low_glycemic_index_file.close()
 rows_to_keep=set()
 
 for i in range(len(list_of_foods)):

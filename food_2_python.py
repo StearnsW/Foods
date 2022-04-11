@@ -18,3 +18,9 @@ print(len(data))
 print(f"There are {count_of_good_foods} foods with High Fiber, Low Fat, and a Low Glycemic Index.")
 print(f"This represents {(count_of_good_foods*100)/len(data)} % of the overall list.")
 print(f"The good foods are: {recommended_foods}")
+
+print("\n\n\n\n\n")
+grades=[98,96,88,98,99,90,87]
+grades_over_90 = filter(lambda x: x > 90, grades)
+print(list(grades_over_90))
+
